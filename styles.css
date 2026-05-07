@@ -22,6 +22,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 96px;
 }
 
 body {
@@ -101,6 +102,25 @@ a {
   box-shadow: 0 15px 32px rgba(9, 104, 247, 0.24);
 }
 
+.brand-logo {
+  width: 120px;
+  height: 52px;
+  flex: 0 0 120px;
+  overflow: hidden;
+  background: var(--white);
+  border: 3px solid rgba(255, 255, 255, 0.84);
+  border-radius: 16px;
+  box-shadow: 0 15px 32px rgba(0, 183, 183, 0.18);
+}
+
+.brand-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.35);
+}
+
 .brand strong,
 .brand small {
   display: block;
@@ -127,17 +147,35 @@ a {
   background: rgba(255, 255, 255, 0.62);
   border: 1px solid rgba(20, 24, 39, 0.08);
   border-radius: 999px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+}
+
+.nav::-webkit-scrollbar {
+  display: none;
 }
 
 .nav a {
   padding: 0.62rem 0.9rem;
   border-radius: 999px;
+  scroll-snap-align: start;
+  white-space: nowrap;
   transition: background 180ms ease, color 180ms ease;
 }
 
 .nav a:hover {
   color: var(--deep-blue);
   background: rgba(9, 104, 247, 0.1);
+}
+
+.nav a:focus-visible,
+.header-cta:focus-visible,
+.button:focus-visible,
+.text-link:focus-visible,
+.contact-card a:focus-visible {
+  outline: 3px solid rgba(255, 212, 59, 0.92);
+  outline-offset: 3px;
 }
 
 .header-cta,
@@ -351,6 +389,7 @@ h3 {
 
 .section {
   padding: clamp(4rem, 7vw, 7rem) clamp(1rem, 5vw, 5.5rem);
+  scroll-margin-top: 96px;
 }
 
 .intro-band {
@@ -509,6 +548,52 @@ h3 {
   line-height: 1.55;
 }
 
+.areas {
+  padding-top: 0;
+}
+
+.areas .section-heading p:last-child {
+  max-width: 780px;
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+
+.area-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.area-list span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0.75rem 1rem;
+  color: #10213a;
+  font-weight: 900;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(20, 24, 39, 0.08);
+  border-radius: 999px;
+  box-shadow: 0 12px 28px rgba(20, 24, 39, 0.07);
+}
+
+.map-frame {
+  height: clamp(320px, 44vw, 520px);
+  margin-top: 1.5rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius);
+  box-shadow: 0 22px 54px rgba(20, 24, 39, 0.1);
+}
+
+.map-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 .split {
   display: grid;
   grid-template-columns: minmax(0, 0.92fr) minmax(280px, 1.08fr);
@@ -589,6 +674,16 @@ h3 {
   min-height: 560px;
 }
 
+.art-flyer {
+  width: min(100%, 390px);
+  transform: rotate(-1.4deg);
+}
+
+.art-flyer img {
+  aspect-ratio: 2 / 3;
+  object-position: center;
+}
+
 .art-board {
   position: relative;
   width: min(100%, 430px);
@@ -652,6 +747,50 @@ h3 {
   background:
     linear-gradient(120deg, rgba(7, 44, 119, 0.94), rgba(118, 87, 255, 0.78) 46%, rgba(255, 79, 135, 0.82)),
     linear-gradient(90deg, var(--teal), var(--yellow));
+}
+
+.class-details {
+  background:
+    linear-gradient(135deg, rgba(239, 251, 255, 0.92), rgba(255, 249, 226, 0.84)),
+    var(--white);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.detail-card {
+  min-height: 190px;
+  padding: 1.35rem;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius);
+  box-shadow: 0 18px 44px rgba(20, 24, 39, 0.08);
+}
+
+.detail-card span {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: var(--deep-blue);
+  font-size: 0.78rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.detail-card strong {
+  display: block;
+  margin-bottom: 0.6rem;
+  color: #09255f;
+  font-size: clamp(1.55rem, 3vw, 2.45rem);
+  line-height: 1;
+}
+
+.detail-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
 }
 
 .class-layout {
@@ -799,7 +938,8 @@ h3 {
 
   .service-grid,
   .service-grid.two-column,
-  .showcase {
+  .showcase,
+  .detail-grid {
     grid-template-columns: 1fr;
   }
 
@@ -814,8 +954,21 @@ h3 {
     position: static;
   }
 
+  html {
+    scroll-padding-top: 16px;
+  }
+
+  .section {
+    scroll-margin-top: 16px;
+  }
+
   .brand {
     min-width: 0;
+  }
+
+  .brand-logo {
+    width: 98px;
+    flex-basis: 98px;
   }
 
   .header-cta,
@@ -850,5 +1003,18 @@ h3 {
 
   .site-footer {
     display: grid;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
